@@ -1,0 +1,21 @@
+version: "3.3"
+services:
+  weather:
+    container_name: weather
+    build:
+      context: .
+      dockerfile: MoscowWeatherApi/Dockerfile
+    depends_on: [postgres]
+    environment:
+        "ConnectionStrings__WeatherDatabase": "Host=postgres; Port=5432; Database=postgres; Username=postgres; Password=postgres"
+    ports:
+      - "8080:80"
+  postgres:
+    image: postgres
+    container_name: pg
+    environment:
+      POSTGRES_DB: "postgres"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+    ports:
+      - "5432:5432"
